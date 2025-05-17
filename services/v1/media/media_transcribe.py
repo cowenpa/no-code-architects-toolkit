@@ -78,8 +78,7 @@ def process_transcribe_media(
         response_type: str,
         language: str,
         job_id: str,
-        from typing import Optional
-words_per_line: Optional[int] = None
+words_per_line: int | None = None
 ):
     """
     Transcribe (or translate) media_url with Whisper.
