@@ -52,12 +52,13 @@ def resolve_media_path(media_url: str) -> tuple[Path, bool]:
     if parts.scheme in {"http", "https"} and parts.hostname == HOSTNAME:
         try:
             rel = PurePosixPath(unquote(parts.path)).relative_to("/upload")
-            local_file = UPLOAD_HOST / rel
-            if local_file.exists():
-                logger.info(f"Resolved internal URL to local file: {local_file}")
-                return local_file, False
+            # Try all possible mount locations
+            for prefix in [UPLOAD_HOST, UPLOAD_CONT]:
+                local_file = prefix / rel
+                if local_file.exists():
+                    logger.info(f"Resolved internal URL to local file: {local_file}")
+                    return local_file, False
         except ValueError:
-            # path didn’t start with /upload – ignore
             pass
 
     # 3) Remote URL – download
