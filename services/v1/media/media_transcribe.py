@@ -96,7 +96,7 @@ words_per_line: int | None = None
     #  2.  Run Whisper                                                   #
     # ------------------------------------------------------------------ #
     model_size = "base"
-    model = whisper.load_model(model_size, device="cpu", dtype="float32")
+    model = whisper.load_model(model_size, device="cpu")
     logger.info(f"Loaded Whisper {model_size} model (CPU/FP32)")
 
     options = {
