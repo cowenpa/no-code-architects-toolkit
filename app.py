@@ -266,6 +266,11 @@ def create_app():
     app.register_blueprint(v1_toolkit_job_status_bp)
     app.register_blueprint(v1_toolkit_jobs_status_bp)
 
+    @app.route('/v1/health', methods=['GET'])
+
+    def health():
+        return {"status": "ok"}, 200
+
     return app
 
 app = create_app()
